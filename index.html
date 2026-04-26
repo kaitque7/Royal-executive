@@ -1,0 +1,2290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Plan — A Four-Phase Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf7f0;
+    --bg-alt: #f1ebde;
+    --surface: #ffffff;
+    --surface-2: #f6f1e6;
+    --ink: #14130f;
+    --ink-soft: #4a4640;
+    --ink-dim: #8a8478;
+    --brass: #b8884a;
+    --brass-deep: #8e6428;
+    --brass-soft: #d4ac6e;
+    --forest: #1f3d2f;
+    --forest-light: #2d5a44;
+    --terracotta: #c25e3c;
+    --terracotta-soft: #d6856a;
+    --border: rgba(20, 19, 15, 0.08);
+    --border-strong: rgba(20, 19, 15, 0.16);
+    --shadow-sm: 0 1px 2px rgba(20, 19, 15, 0.04);
+    --shadow-md: 0 4px 16px rgba(20, 19, 15, 0.06);
+    --shadow-lg: 0 24px 48px rgba(20, 19, 15, 0.08);
+    --radius: 14px;
+    --radius-sm: 8px;
+    --radius-lg: 24px;
+  }
+
+  .dark {
+    --bg: #0e0d0a;
+    --bg-alt: #161410;
+    --surface: #1a1814;
+    --surface-2: #221f1a;
+    --ink: #f5efe2;
+    --ink-soft: #b8b1a0;
+    --ink-dim: #7a7468;
+    --border: rgba(245, 239, 226, 0.08);
+    --border-strong: rgba(245, 239, 226, 0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Manrope', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  ::selection { background: var(--brass); color: var(--bg); }
+
+  /* NAV */
+  nav.top {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250, 247, 240, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 32px;
+    transition: background 0.3s ease;
+  }
+
+  .dark nav.top { background: rgba(14, 13, 10, 0.85); }
+
+  .nav-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav-brand { display: flex; align-items: center; gap: 10px; }
+
+  .nav-brand .mark {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--brass), var(--brass-deep));
+    display: flex; align-items: center; justify-content: center;
+    color: var(--bg);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  .nav-brand .name {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 15px;
+  }
+
+  .nav-tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--surface-2);
+    padding: 4px;
+    border-radius: 100px;
+  }
+
+  .nav-tab {
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .nav-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-dim);
+  }
+
+  .nav-tab:hover { color: var(--ink); }
+  .nav-tab.active { background: var(--ink); color: var(--bg); }
+  .nav-tab.active .num { color: var(--brass-soft); }
+
+  .nav-actions { display: flex; gap: 12px; align-items: center; }
+
+  .icon-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-soft);
+    transition: all 0.2s ease;
+  }
+
+  .icon-btn:hover { border-color: var(--brass); color: var(--brass); }
+
+  /* HERO */
+  .hero {
+    padding: 100px 32px 80px;
+    background: var(--ink);
+    color: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -50%; right: -10%;
+    width: 60%; height: 200%;
+    background: radial-gradient(circle, rgba(184, 136, 74, 0.15), transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brass-soft);
+    margin-bottom: 28px;
+  }
+
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px;
+    background: var(--brass);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 144, "SOFT" 80;
+    font-size: clamp(48px, 8vw, 110px);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    font-weight: 300;
+    color: var(--bg);
+    max-width: 1100px;
+    margin-bottom: 32px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--brass-soft);
+  }
+
+  .hero-deck {
+    font-size: 18px;
+    line-height: 1.55;
+    max-width: 640px;
+    color: rgba(245, 239, 226, 0.75);
+    margin-bottom: 56px;
+    font-weight: 300;
+  }
+
+  /* PHASE TRACK — 4 CARDS */
+  .phase-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(245, 239, 226, 0.12);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid rgba(245, 239, 226, 0.12);
+  }
+
+  .phase-card {
+    padding: 24px 20px 28px;
+    background: rgba(245, 239, 226, 0.03);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .phase-card:hover { background: rgba(184, 136, 74, 0.1); }
+  .phase-card.current { background: rgba(184, 136, 74, 0.18); }
+
+  .phase-card .num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--brass-soft);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .phase-card .num::after {
+    content: ""; flex: 1;
+    height: 1px; background: rgba(245, 239, 226, 0.15);
+  }
+
+  .phase-card h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .phase-card .where {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(245, 239, 226, 0.5);
+    margin-bottom: 12px;
+  }
+
+  .phase-card .desc {
+    font-size: 12px;
+    line-height: 1.55;
+    color: rgba(245, 239, 226, 0.7);
+  }
+
+  .phase-card .arrow {
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--brass-soft);
+    display: flex; align-items: center; gap: 6px;
+    font-weight: 500;
+    transition: gap 0.2s ease;
+  }
+
+  .phase-card:hover .arrow { gap: 10px; }
+
+  /* PANELS */
+  .phase-panel {
+    display: none;
+    padding: 80px 32px;
+    animation: fadeUp 0.5s ease;
+  }
+
+  .phase-panel.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* PHASE HEADER */
+  .phase-header {
+    max-width: 1280px;
+    margin: 0 auto 80px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: end;
+  }
+
+  .phase-header .label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: var(--brass);
+    color: var(--bg);
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  .phase-header .label.terracotta { background: var(--terracotta); }
+  .phase-header .label.forest { background: var(--forest); }
+
+  .phase-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.0;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+    margin-bottom: 24px;
+  }
+
+  .phase-header h2 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--brass);
+  }
+
+  .phase-header h2 em.terracotta { color: var(--terracotta); }
+
+  .phase-header .summary {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 560px;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .stat {
+    padding: 20px 0;
+    border-top: 1px solid var(--border-strong);
+  }
+
+  .stat .num {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    line-height: 1;
+    color: var(--brass);
+    font-weight: 400;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .stat .num.terracotta { color: var(--terracotta); }
+
+  .stat .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  /* MODULE NAV */
+  .module-nav {
+    max-width: 1280px;
+    margin: 0 auto 56px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 6px;
+    background: var(--surface-2);
+    border-radius: 100px;
+    overflow-x: auto;
+  }
+
+  .module-nav a {
+    padding: 10px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .module-nav a .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-dim);
+  }
+
+  .module-nav a:hover {
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  /* MODULE */
+  .module {
+    max-width: 1280px;
+    margin: 0 auto 96px;
+    padding-top: 24px;
+    scroll-margin-top: 100px;
+  }
+
+  .module-head {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .module-head .index {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--brass);
+    letter-spacing: 0.16em;
+  }
+
+  .module-head h3 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    flex: 1;
+  }
+
+  .module-head h3 em {
+    font-style: italic;
+    color: var(--brass);
+    font-weight: 300;
+  }
+
+  .module-intro {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin-bottom: 40px;
+  }
+
+  /* HIERARCHY DIAGRAM — VISUALIZATION */
+  .hierarchy {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 48px;
+    margin-bottom: 32px;
+  }
+
+  .hierarchy-row {
+    display: grid;
+    grid-template-columns: 200px 1fr auto;
+    gap: 24px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    transition: all 0.2s ease;
+  }
+
+  .hierarchy-row:last-child { border-bottom: none; }
+  .hierarchy-row:hover { padding-left: 8px; }
+
+  .hierarchy-row .step {
+    display: flex; align-items: center; gap: 14px;
+  }
+
+  .hierarchy-row .step-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-soft);
+    flex-shrink: 0;
+  }
+
+  .hierarchy-row.now .step-num {
+    background: var(--terracotta);
+    color: var(--bg);
+    border-color: var(--terracotta);
+  }
+
+  .hierarchy-row .step-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 4px;
+  }
+
+  .hierarchy-row .step-name {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .hierarchy-row .step-name em { font-style: italic; color: var(--terracotta); }
+
+  .hierarchy-row .desc {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .hierarchy-row .cost-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    padding: 5px 12px;
+    border-radius: 100px;
+    background: var(--surface-2);
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  .hierarchy-row.now .cost-tag {
+    background: rgba(194, 94, 60, 0.12);
+    color: var(--terracotta);
+  }
+
+  /* VOLUNTEER ORGS — CARDS WITH COST INDICATORS */
+  .vol-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .vol-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vol-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 3px;
+    background: var(--terracotta);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s ease;
+  }
+
+  .vol-card:hover {
+    border-color: var(--terracotta);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .vol-card:hover::before { transform: scaleY(1); }
+
+  .vol-card .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .vol-card h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .vol-card .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink-dim);
+    margin-bottom: 12px;
+  }
+
+  .vol-card p {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+
+  .vol-card .why {
+    font-size: 12px;
+    color: var(--terracotta);
+    background: rgba(194, 94, 60, 0.08);
+    padding: 8px 12px;
+    border-radius: 8px;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .vol-card .why strong { font-weight: 700; }
+
+  .indicator-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .indicator {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 100px;
+    background: var(--surface-2);
+    color: var(--ink-soft);
+  }
+
+  .indicator.cost-free { background: rgba(31, 90, 68, 0.15); color: var(--forest); }
+  .indicator.cost-low { background: rgba(184, 136, 74, 0.12); color: var(--brass-deep); }
+  .indicator.cost-mid { background: rgba(194, 94, 60, 0.1); color: var(--terracotta); }
+
+  /* AVENUE HOMES EVENTS — FEATURE PANEL */
+  .feature {
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: var(--radius-lg);
+    padding: 56px 48px;
+    margin: 0 auto 48px;
+    max-width: 1280px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature.terracotta::before {
+    content: "";
+    position: absolute;
+    bottom: -40%; right: -10%;
+    width: 50%; height: 150%;
+    background: radial-gradient(circle, rgba(194, 94, 60, 0.2), transparent 70%);
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 56px;
+    position: relative;
+    align-items: start;
+  }
+
+  .feature-left .label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terracotta-soft);
+    margin-bottom: 24px;
+  }
+
+  .feature-left h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 44px;
+    line-height: 1.0;
+    letter-spacing: -0.025em;
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+
+  .feature-left h3 em {
+    font-style: italic;
+    color: var(--terracotta-soft);
+  }
+
+  .feature-left p {
+    font-size: 15px;
+    line-height: 1.65;
+    color: rgba(245, 239, 226, 0.75);
+    margin-bottom: 16px;
+  }
+
+  .event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .event-item {
+    background: rgba(245, 239, 226, 0.04);
+    border: 1px solid rgba(245, 239, 226, 0.08);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .event-item:hover {
+    background: rgba(194, 94, 60, 0.1);
+    border-color: rgba(194, 94, 60, 0.3);
+  }
+
+  .event-item .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .event-item .name {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .event-item .cost {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+    background: rgba(245, 239, 226, 0.08);
+    color: rgba(245, 239, 226, 0.7);
+  }
+
+  .event-item .cost.free {
+    background: rgba(109, 186, 154, 0.15);
+    color: #6dba9a;
+  }
+
+  .event-item .desc {
+    font-size: 13px;
+    color: rgba(245, 239, 226, 0.65);
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .event-item .tags {
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+
+  .event-item .tags .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 100px;
+    background: rgba(245, 239, 226, 0.06);
+    color: rgba(245, 239, 226, 0.6);
+  }
+
+  /* PARTNERSHIPS — SIMPLE TWO-COLUMN */
+  .partner-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .partner-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    transition: all 0.25s ease;
+  }
+
+  .partner-card:hover {
+    border-color: var(--brass);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .partner-card .type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin-bottom: 10px;
+  }
+
+  .partner-card h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .partner-card p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* CONTENT MEDIA — LIST STYLE */
+  .media-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .media-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 100px;
+    gap: 24px;
+    padding: 20px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    align-items: center;
+    transition: all 0.2s ease;
+  }
+
+  .media-row:hover {
+    border-color: var(--brass);
+  }
+
+  .media-row .channel {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .media-row .approach {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .media-row .effort {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--brass);
+    text-align: right;
+  }
+
+  /* ACTION PLAN — INTERACTIVE */
+  .action-plan {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+  }
+
+  .action-quarter {
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .action-quarter:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .action-quarter-head {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .action-quarter-head .badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: var(--terracotta);
+    color: var(--bg);
+    font-weight: 600;
+  }
+
+  .action-quarter-head h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    flex: 1;
+  }
+
+  .action-quarter-head h4 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .quarter-budget {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--ink-dim);
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: var(--surface-2);
+  }
+
+  .action-list {
+    display: flex; flex-direction: column;
+    gap: 4px;
+  }
+
+  .action-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    align-items: flex-start;
+  }
+
+  .action-item:hover { background: var(--surface-2); }
+
+  .action-item .check {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--border-strong);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s ease;
+    color: transparent;
+    font-weight: 700;
+  }
+
+  .action-item.done .check {
+    background: var(--forest);
+    border-color: var(--forest);
+    color: var(--bg);
+  }
+
+  .action-item .check::after { content: "✓"; font-size: 14px; }
+
+  .action-item.done .text { text-decoration: line-through; color: var(--ink-dim); }
+
+  .action-item .text {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  .action-item .text strong { font-weight: 600; }
+
+  .action-item .item-cost {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: var(--surface-2);
+    color: var(--ink-dim);
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  .item-cost.free { background: rgba(31, 90, 68, 0.12); color: var(--forest); }
+  .item-cost.low { background: rgba(184, 136, 74, 0.12); color: var(--brass-deep); }
+  .item-cost.mid { background: rgba(194, 94, 60, 0.1); color: var(--terracotta); }
+
+  /* GEOGRAPHY (EXISTING) */
+  .geo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .geo-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .geo-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--brass);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .geo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--brass);
+  }
+
+  .geo-card:hover::before { transform: scaleX(1); }
+
+  .geo-card .pin {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--brass);
+    color: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .geo-card h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+
+  .geo-card .zip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    margin-bottom: 14px;
+    letter-spacing: 0.1em;
+  }
+
+  .geo-card .blurb {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* CLUBS (EXISTING) */
+  .clubs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .club-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    transition: all 0.25s ease;
+    position: relative;
+  }
+
+  .club-card:hover {
+    border-color: var(--ink);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .club-card .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    gap: 16px;
+  }
+
+  .club-card h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+
+  .club-card .badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .badge-tier-1 { background: var(--ink); color: var(--bg); }
+  .badge-tier-2 { background: var(--brass); color: var(--bg); }
+  .badge-tier-3 { background: var(--surface-2); color: var(--ink-soft); }
+
+  .club-card .meta-line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+  }
+
+  .club-card .meta-line strong { color: var(--brass); }
+
+  .club-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+
+  .club-card .entry-tag {
+    font-size: 12px;
+    color: var(--forest);
+    background: rgba(31, 61, 47, 0.08);
+    padding: 6px 12px;
+    border-radius: 100px;
+    display: inline-block;
+    font-weight: 500;
+  }
+
+  /* COMPACT GRID FOR CONDENSED PHASES */
+  .compact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .compact-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: all 0.25s ease;
+  }
+
+  .compact-card:hover {
+    border-color: var(--brass);
+    transform: translateY(-2px);
+  }
+
+  .compact-card .country {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--brass);
+    letter-spacing: 0.16em;
+    margin-bottom: 8px;
+  }
+
+  .compact-card h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .compact-card p {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* CALENDAR */
+  .calendar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .month-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    min-height: 200px;
+  }
+
+  .month-card:hover {
+    border-color: var(--brass);
+    box-shadow: var(--shadow-md);
+  }
+
+  .month-card .mo {
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    color: var(--brass);
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+    font-style: italic;
+  }
+
+  .month-card .num {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    font-weight: 400;
+    margin-bottom: 16px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .month-card ul {
+    list-style: none;
+    display: flex; flex-direction: column;
+    gap: 8px;
+  }
+
+  .month-card li {
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .month-card li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 6px;
+    width: 6px; height: 6px;
+    background: var(--brass);
+    border-radius: 50%;
+  }
+
+  .month-card li strong {
+    color: var(--ink);
+    font-weight: 600;
+    display: block;
+  }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: linear-gradient(135deg, var(--terracotta), #a04a2c);
+    color: var(--bg);
+    border-radius: var(--radius-lg);
+    padding: 48px;
+    margin: 80px auto 0;
+    max-width: 1280px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-banner.brass {
+    background: linear-gradient(135deg, var(--brass), var(--brass-deep));
+  }
+
+  .cta-banner::before {
+    content: "";
+    position: absolute;
+    top: -50%; left: -10%;
+    width: 50%; height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent 70%);
+  }
+
+  .cta-banner h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 42px;
+    line-height: 1.1;
+    font-weight: 300;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+    position: relative;
+  }
+
+  .cta-banner h3 em { font-style: italic; }
+
+  .cta-banner p {
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 580px;
+    margin: 0 auto;
+    opacity: 0.92;
+    position: relative;
+  }
+
+  /* FOOTER */
+  footer {
+    margin-top: 80px;
+    padding: 48px 32px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  footer .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  footer .mono span { color: var(--brass); }
+
+  /* RESPONSIVE */
+  @media (max-width: 980px) {
+    .nav-tabs { display: none; }
+    .hero { padding: 60px 24px 60px; }
+    .phase-track { grid-template-columns: 1fr 1fr; }
+    .phase-header { grid-template-columns: 1fr; gap: 32px; }
+    .geo-grid { grid-template-columns: 1fr 1fr; }
+    .clubs-grid, .vol-grid, .partner-grid, .compact-grid, .calendar {
+      grid-template-columns: 1fr;
+    }
+    .feature-grid { grid-template-columns: 1fr; gap: 32px; }
+    .feature { padding: 36px 28px; }
+    .module-nav { font-size: 12px; }
+    .stats-row { grid-template-columns: 1fr; }
+    .action-plan { padding: 28px 20px; }
+    .phase-panel { padding: 60px 20px; }
+    .hierarchy { padding: 28px; }
+    .hierarchy-row { grid-template-columns: 1fr; gap: 12px; }
+    .media-row { grid-template-columns: 1fr; gap: 8px; }
+    .media-row .effort { text-align: left; }
+  }
+
+  @media (max-width: 600px) {
+    nav.top { padding: 12px 20px; }
+    .nav-brand .name { display: none; }
+    .geo-grid, .calendar { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 44px; }
+    .phase-track { grid-template-columns: 1fr; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <div class="mark">K</div>
+      <div class="name">The Plan / Quesada</div>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-phase="1"><span class="num">01</span>Avenue Homes</button>
+      <button class="nav-tab" data-phase="2"><span class="num">02</span>Tampa</button>
+      <button class="nav-tab" data-phase="3"><span class="num">03</span>Continent</button>
+      <button class="nav-tab" data-phase="4"><span class="num">04</span>Franco-Suisse</button>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="modeToggle" title="Toggle theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><span class="dot"></span> Strategic Doc — Confidential — MMXXVI</div>
+    <h1>Four phases. <em>One ascent.</em></h1>
+    <p class="hero-deck">Earn the brand first. Earn the city second. Bridge the Atlantic third. The Franco-Swiss world is the destination — but only after the foundation is real.</p>
+
+    <div class="phase-track">
+      <div class="phase-card current" data-phase-jump="1">
+        <div class="num">Phase I <span></span></div>
+        <h3>Avenue Homes Recognition</h3>
+        <div class="where">Hyde Park · Davis Islands · South Tampa</div>
+        <p class="desc">Build the brand's local visibility through volunteer hours and grassroots events — before any paid sponsorship. Months 1–9.</p>
+        <div class="arrow">Begin here →</div>
+      </div>
+      <div class="phase-card" data-phase-jump="2">
+        <div class="num">Phase II <span></span></div>
+        <h3>The Tampa Foundation</h3>
+        <div class="where">Tampa Yacht Club · Junior League · Krewes</div>
+        <p class="desc">Translate brand visibility into personal social standing in the city. Months 9–24.</p>
+        <div class="arrow">Continue →</div>
+      </div>
+      <div class="phase-card" data-phase-jump="3">
+        <div class="num">Phase III <span></span></div>
+        <h3>The Continental Bridge</h3>
+        <div class="where">London · Paris · transatlantic</div>
+        <p class="desc">The eight movements: real-estate partnerships, philanthropy, schools, presentation. Year 2 onward.</p>
+        <div class="arrow">→</div>
+      </div>
+      <div class="phase-card" data-phase-jump="4">
+        <div class="num">Phase IV <span></span></div>
+        <h3>Franco-Swiss Mastery</h3>
+        <div class="where">Paris · Geneva · the Engadin</div>
+        <p class="desc">The destination. The calendar, the foundations, the schools where French and Swiss capital meets. Year 3+.</p>
+        <div class="arrow">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 1: AVENUE HOMES RECOGNITION -->
+<section class="phase-panel active" id="phase-1">
+
+  <div class="phase-header">
+    <div class="left">
+      <div class="label terracotta">● Phase 01 — Foundation</div>
+      <h2>Avenue <em class="terracotta">Homes</em> Recognition</h2>
+    </div>
+    <div class="right">
+      <p class="summary">Sponsorships at the gala-table level cost $5,000–$25,000 and presume the buyer has a brand worth attaching to a charity's name. Avenue Homes hasn't earned that yet — and that's fine. The right move is to build recognition through <em>presence</em>, not purchase. Volunteer hours, hosted drives, and consistent neighborhood visibility cost almost nothing and compound for years.</p>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="num terracotta">~$2k</div>
+          <div class="label">Total Phase 1 budget (9 months)</div>
+        </div>
+        <div class="stat">
+          <div class="num terracotta">12+</div>
+          <div class="label">Visibility touchpoints planned</div>
+        </div>
+        <div class="stat">
+          <div class="num terracotta">9mo</div>
+          <div class="label">Before any paid sponsorship</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="module-nav">
+    <a href="#hierarchy"><span class="num">01</span>Hierarchy of Visibility</a>
+    <a href="#volunteer"><span class="num">02</span>Personal Volunteering</a>
+    <a href="#events"><span class="num">03</span>AH-Hosted Events</a>
+    <a href="#partners"><span class="num">04</span>Local Partnerships</a>
+    <a href="#media"><span class="num">05</span>Content &amp; Media</a>
+    <a href="#networking"><span class="num">06</span>Affordable Networking</a>
+    <a href="#plan-1"><span class="num">07</span>9-Month Plan</a>
+  </div>
+
+  <!-- MODULE 1: HIERARCHY -->
+  <div class="module" id="hierarchy">
+    <div class="module-head">
+      <div class="index">01 / 07</div>
+      <h3>The <em>hierarchy</em> of visibility</h3>
+    </div>
+    <p class="module-intro">Brands climb the local social ladder in a specific order. Skip a rung and you read as a buyer-of-attention rather than a community member. Here's the order — and where Avenue Homes is right now.</p>
+
+    <div class="hierarchy">
+      <div class="hierarchy-row now">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-label">You are here</div>
+            <div class="step-name"><em>Personal</em> volunteer presence</div>
+          </div>
+        </div>
+        <div class="desc">Kaitlyn's name (and, by association, Avenue Homes) shows up at volunteer events, charity drives, and neighborhood activities. Free, frequent, repeatable.</div>
+        <div class="cost-tag">$0 · Time only</div>
+      </div>
+      <div class="hierarchy-row">
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-label">Months 2–6</div>
+            <div class="step-name"><em>Branded</em> community events</div>
+          </div>
+        </div>
+        <div class="desc">Avenue Homes hosts low-cost, high-frequency community events — beach cleanups, school supply drives, holiday toy drives, free homebuyer seminars.</div>
+        <div class="cost-tag">$100–$500 each</div>
+      </div>
+      <div class="hierarchy-row">
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-label">Months 6–9</div>
+            <div class="step-name"><em>Small</em> local sponsorships</div>
+          </div>
+        </div>
+        <div class="desc">Little League uniform sponsorship, school fundraiser donations, Hyde Park Village merchant events. Real dollars but reachable amounts.</div>
+        <div class="cost-tag">$300–$2,000 each</div>
+      </div>
+      <div class="hierarchy-row">
+        <div class="step">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-label">Phase II — Year 2</div>
+            <div class="step-name">Charity <em>gala</em> sponsorships</div>
+          </div>
+        </div>
+        <div class="desc">Full table at Magnolia Ball or Heart Ball. Now Avenue Homes has the recognition to make the table seating actually convert.</div>
+        <div class="cost-tag">$5,000–$25,000</div>
+      </div>
+      <div class="hierarchy-row">
+        <div class="step">
+          <div class="step-num">5</div>
+          <div>
+            <div class="step-label">Phase III+</div>
+            <div class="step-name">Major <em>institutional</em> giving</div>
+          </div>
+        </div>
+        <div class="desc">Named giving — a wing, a fund, a chair. Reserved for the brand's later years and the family foundation that follows.</div>
+        <div class="cost-tag">$50,000+</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 2: VOLUNTEER -->
+  <div class="module" id="volunteer">
+    <div class="module-head">
+      <div class="index">02 / 07</div>
+      <h3>The <em>volunteer</em> identity</h3>
+    </div>
+    <p class="module-intro">Personal volunteer hours are the most underpriced social currency in any American city. Five hours a month at the right organization places Kaitlyn's face — and her introductions — in front of the same families she'd otherwise pay thousands to meet. Pick three. Show up consistently. The sponsorship invitations follow.</p>
+
+    <div class="vol-grid">
+      <div class="vol-card">
+        <div class="header-row">
+          <h4>Habitat for Humanity Tampa</h4>
+        </div>
+        <div class="meta">Real estate adjacent · Saturdays</div>
+        <div class="indicator-row">
+          <div class="indicator cost-free">Free</div>
+          <div class="indicator">4–8h / month</div>
+        </div>
+        <p>The single most strategically aligned volunteer organization for someone in residential real estate. Build Days are public, well-attended by South Tampa families, and immediately legible to clients.</p>
+        <div class="why"><strong>Why:</strong> Avenue Homes can sponsor a Build Day at any tier — even a $250 lunch sponsorship gets the brand on the day's signage.</div>
+      </div>
+      <div class="vol-card">
+        <div class="header-row">
+          <h4>Metropolitan Ministries</h4>
+        </div>
+        <div class="meta">Holiday Tent · Nov–Dec especially</div>
+        <div class="indicator-row">
+          <div class="indicator cost-free">Free</div>
+          <div class="indicator">Flexible hours</div>
+        </div>
+        <p>Tampa's most respected family-services charity. The Holiday Tent in November and December is the city's largest volunteer event — and it's where every civic-minded family shows up at least once.</p>
+        <div class="why"><strong>Why:</strong> Bring an Avenue Homes group of 8–10 agents for a single shift. Visibility, team-building, and a photo for the website all in one afternoon.</div>
+      </div>
+      <div class="vol-card">
+        <div class="header-row">
+          <h4>Junior League of Tampa</h4>
+        </div>
+        <div class="meta">Volunteer projects · Pre-membership</div>
+        <div class="indicator-row">
+          <div class="indicator cost-free">Free</div>
+          <div class="indicator">2–6h / event</div>
+        </div>
+        <p>Several JLT projects accept non-member volunteers — Holiday Gift Market is the most visible. Volunteering before applying for membership is the warmer path.</p>
+        <div class="why"><strong>Why:</strong> JLT membership is the formal women's social structure of Hyde Park. Volunteer hours now means a stronger application later.</div>
+      </div>
+      <div class="vol-card">
+        <div class="header-row">
+          <h4>Tampa Bay Watch</h4>
+        </div>
+        <div class="meta">Davis Islands area · Environmental</div>
+        <div class="indicator-row">
+          <div class="indicator cost-free">Free</div>
+          <div class="indicator">Saturday mornings</div>
+        </div>
+        <p>Estuary cleanup, oyster reef restoration, sea grass planting. Highly photogenic and concentrated near the Davis Islands waterfront.</p>
+        <div class="why"><strong>Why:</strong> Davis Islands residents care about the water; showing up at TBW is the cleanest signal that Avenue Homes does too.</div>
+      </div>
+      <div class="vol-card">
+        <div class="header-row">
+          <h4>Keep Tampa Bay Beautiful</h4>
+        </div>
+        <div class="meta">Bayshore Beautiful Cleanup days</div>
+        <div class="indicator-row">
+          <div class="indicator cost-free">Free</div>
+          <div class="indicator">Quarterly</div>
+        </div>
+        <p>Cleanup days along Bayshore and the broader corridor. Smaller, recurring, neighbor-coded. Most of the volunteers are the people you want to know.</p>
+        <div class="why"><strong>Why:</strong> Easy to bring an Avenue Homes team, simple branded T-shirts, instant Instagram content.</div>
+      </div>
+      <div class="vol-card">
+        <div class="header-row">
+          <h4>Feeding Tampa Bay</h4>
+        </div>
+        <div class="meta">Food bank · Year-round shifts</div>
+        <div class="indicator-row">
+          <div class="indicator cost-free">Free</div>
+          <div class="indicator">2–3h shifts</div>
+        </div>
+        <p>The region's largest food bank. Group volunteer shifts are easy to coordinate and offer a low-friction first volunteer experience for an entire team.</p>
+        <div class="why"><strong>Why:</strong> Quarterly Avenue Homes group shifts build internal culture and a public service record at the same time.</div>
+      </div>
+      <div class="vol-card">
+        <div class="header-row">
+          <h4>The Spring of Tampa Bay</h4>
+        </div>
+        <div class="meta">Domestic violence shelter · Women's giving</div>
+        <div class="indicator-row">
+          <div class="indicator cost-free">Free</div>
+          <div class="indicator">Item drives + events</div>
+        </div>
+        <p>Item donation drives, holiday-room sponsorships, the Spring Forward luncheon committee. A serious cause attached to a strong women's network in South Tampa.</p>
+        <div class="why"><strong>Why:</strong> Avenue Homes' 100+ agent base is heavily female; this is the cause that resonates internally and externally.</div>
+      </div>
+      <div class="vol-card">
+        <div class="header-row">
+          <h4>Plant High School Boosters</h4>
+        </div>
+        <div class="meta">Plant HS · Hyde Park's school</div>
+        <div class="indicator-row">
+          <div class="indicator cost-low">$50–500</div>
+          <div class="indicator">Episode-based</div>
+        </div>
+        <p>Plant High School defines the Hyde Park families. Booster club volunteer hours, athletic-team supporter status, and PTSA involvement are how local businesses become part of the neighborhood furniture.</p>
+        <div class="why"><strong>Why:</strong> A $300 athletic team uniform sponsorship gets the Avenue Homes name on the back of every game-day photo of the season.</div>
+      </div>
+      <div class="vol-card">
+        <div class="header-row">
+          <h4>Salvation Army Red Kettle</h4>
+        </div>
+        <div class="meta">December · Bell ringing</div>
+        <div class="indicator-row">
+          <div class="indicator cost-free">Free</div>
+          <div class="indicator">2h shifts</div>
+        </div>
+        <p>YMKG members traditionally bell-ring for the Salvation Army during the holidays. Following that example places Avenue Homes inside the krewe-adjacent civic ecosystem.</p>
+        <div class="why"><strong>Why:</strong> Bell-ring once or twice as Avenue Homes — branded apron, photo for the company holiday card. Costs nothing.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 3: AH-HOSTED EVENTS — DARK FEATURE -->
+  <div class="module" id="events">
+    <div class="module-head">
+      <div class="index">03 / 07</div>
+      <h3>The events <em>Avenue Homes</em> hosts</h3>
+    </div>
+    <p class="module-intro">A small, repeating menu of Avenue Homes-branded community events. The goal is frequency over scale — a quarterly cleanup that people can rely on does more for the brand than a single $5,000 gala table that nobody remembers.</p>
+  </div>
+
+  <div class="feature terracotta">
+    <div class="feature-grid">
+      <div class="feature-left">
+        <div class="label">● The Hosted Calendar</div>
+        <h3>Recurring &amp; <em>repeatable</em></h3>
+        <p>Each event below costs Avenue Homes between zero and a few hundred dollars to execute. None requires the brand to buy a place at someone else's table.</p>
+        <p>The principle: <strong>quarterly small events beat annual big ones.</strong> Twelve touchpoints in a year compound; one black-tie evaporates.</p>
+        <p>Mariam, Elaine, and a rotating roster of agents can each "own" one event. The brand becomes recognisable for showing up — not for paying to.</p>
+      </div>
+      <div class="event-list">
+        <div class="event-item">
+          <div class="top-row">
+            <div class="name">Quarterly Bayshore Cleanup</div>
+            <div class="cost free">~$150</div>
+          </div>
+          <div class="desc">Avenue Homes-branded T-shirts, gloves, trash bags. Two-hour Saturday morning event. Photo content for an entire quarter.</div>
+          <div class="tags"><span class="tag">Bayshore</span><span class="tag">Quarterly</span><span class="tag">Photogenic</span></div>
+        </div>
+        <div class="event-item">
+          <div class="top-row">
+            <div class="name">First-Time Homebuyer Seminar</div>
+            <div class="cost free">~$0</div>
+          </div>
+          <div class="desc">Free 90-minute session at the John F. Germany Public Library or the South Tampa Branch. Light refreshments. Two agents present, one mortgage partner.</div>
+          <div class="tags"><span class="tag">Quarterly</span><span class="tag">Lead generation</span><span class="tag">Library partner</span></div>
+        </div>
+        <div class="event-item">
+          <div class="top-row">
+            <div class="name">Holiday Toy Drive</div>
+            <div class="cost free">~$200</div>
+          </div>
+          <div class="desc">Avenue Homes lobby (and partner businesses) as collection points for Toys for Tots or Metropolitan Ministries. November through mid-December.</div>
+          <div class="tags"><span class="tag">November</span><span class="tag">In-office</span><span class="tag">Partner-extending</span></div>
+        </div>
+        <div class="event-item">
+          <div class="top-row">
+            <div class="name">August School Supply Drive</div>
+            <div class="cost free">~$200</div>
+          </div>
+          <div class="desc">Two-week collection at the office. Donate to Title I South Tampa elementary schools. Ties Avenue Homes to local public-school families.</div>
+          <div class="tags"><span class="tag">August</span><span class="tag">School community</span></div>
+        </div>
+        <div class="event-item">
+          <div class="top-row">
+            <div class="name">"Coffee with Avenue" — quarterly</div>
+            <div class="cost free">~$300</div>
+          </div>
+          <div class="desc">Free coffee and a 15-minute market-update talk at Buddy Brew or Oxford Exchange. Open to neighbors, casual, lightly branded.</div>
+          <div class="tags"><span class="tag">Hyde Park</span><span class="tag">Recurring</span><span class="tag">Soft-touch</span></div>
+        </div>
+        <div class="event-item">
+          <div class="top-row">
+            <div class="name">Davis Islands Pet Adoption Day</div>
+            <div class="cost free">~$250</div>
+          </div>
+          <div class="desc">Co-hosted with Humane Society of Tampa Bay or a local rescue. Avenue Homes provides location/sponsorship + treats. Davis Islands is dog-saturated; this is exactly its language.</div>
+          <div class="tags"><span class="tag">Davis Islands</span><span class="tag">Spring + Fall</span></div>
+        </div>
+        <div class="event-item">
+          <div class="top-row">
+            <div class="name">"Real Estate 101" for Women</div>
+            <div class="cost free">~$0</div>
+          </div>
+          <div class="desc">Quarterly women-only market session. Co-host with a Junior League volunteer connection. Bring a female mortgage and title partner. Authentic, lead-generative, and mission-aligned with Avenue Homes' agent base.</div>
+          <div class="tags"><span class="tag">Quarterly</span><span class="tag">Networking</span><span class="tag">JLT-adjacent</span></div>
+        </div>
+        <div class="event-item">
+          <div class="top-row">
+            <div class="name">Annual Avenue Homes Open House Crawl</div>
+            <div class="cost free">~$500</div>
+          </div>
+          <div class="desc">One Saturday a year, 4–6 of the firm's South Tampa listings open simultaneously. Branded map, light refreshments at each. Treats it as a neighborhood event, not just a transaction.</div>
+          <div class="tags"><span class="tag">Annual</span><span class="tag">Listings-driven</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 4: PARTNERSHIPS -->
+  <div class="module" id="partners">
+    <div class="module-head">
+      <div class="index">04 / 07</div>
+      <h3>Co-host &amp; <em>partner</em> with locals</h3>
+    </div>
+    <p class="module-intro">A partnership with an established South Tampa business gives Avenue Homes borrowed credibility for the price of two hours of planning. The brands below are <em>already</em> the village green of Hyde Park; aligning Avenue Homes with even one of them shortcuts months of cold visibility.</p>
+
+    <div class="partner-grid">
+      <div class="partner-card">
+        <div class="type">Coffee · Hyde Park institution</div>
+        <h4>Buddy Brew Coffee</h4>
+        <p>The Hyde Park location is a daytime social anchor. Co-host "Coffee with Avenue" mornings; pay for the coffee tab in exchange for a small branded card display. Cost: $200–$400 per event.</p>
+      </div>
+      <div class="partner-card">
+        <div class="type">Bookshop café · Daytime social</div>
+        <h4>Oxford Exchange</h4>
+        <p>The civic living room of South Tampa. Private events bookable; book club partnerships, women's networking nights, and small client lunches all viable here. Their event team is responsive to local-business co-hosts.</p>
+      </div>
+      <div class="partner-card">
+        <div class="type">Bakery · Family/civic</div>
+        <h4>Wright's Gourmet House</h4>
+        <p>An institution since 1963. Sponsor the platter at any community meeting; long association with old Tampa. Quietly the most legible signal of "local" at any neighborhood event.</p>
+      </div>
+      <div class="partner-card">
+        <div class="type">Restaurant · Power-hour anchor</div>
+        <h4>The Edison: Food + Drink Lab</h4>
+        <p>Rooftop and main bar are bookable for private 20–40 person events. A natural Avenue Homes hosted-event venue; patio at sunset photographs beautifully for branding.</p>
+      </div>
+      <div class="partner-card">
+        <div class="type">Retail · Hyde Park Village</div>
+        <h4>Hyde Park Village merchants</h4>
+        <p>The Village hosts seasonal events (Fresh Market on Sundays, holiday strolls, summer movie nights). Become a small co-sponsor of one event annually. Direct visibility to the residents you want as clients.</p>
+      </div>
+      <div class="partner-card">
+        <div class="type">Athletic · Plant HS booster</div>
+        <h4>Plant High School athletics</h4>
+        <p>Single-team uniform sponsorship runs $300–800 per season. Avenue Homes name on every game-day photo, every social-media post. The most efficient brand impression in South Tampa for the dollar.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 5: MEDIA -->
+  <div class="module" id="media">
+    <div class="module-head">
+      <div class="index">05 / 07</div>
+      <h3>Content &amp; <em>local media</em></h3>
+    </div>
+    <p class="module-intro">Tampa's local media is genuinely accessible. Trade outlets, lifestyle magazines, and a thriving local podcast scene all welcome warm pitches from operators with a story. The story is yours: COO of a fast-growing brokerage with European ambitions and a triathlete's discipline. That's already a profile piece.</p>
+
+    <div class="media-list">
+      <div class="media-row">
+        <div class="channel">Tampa Magazine</div>
+        <div class="approach">Pitch a "Women in Real Estate" or "Power Players" feature. Annual lifestyle issues are pitch-able 3–4 months ahead. Free with PR effort.</div>
+        <div class="effort">Pitch · 6mo</div>
+      </div>
+      <div class="media-row">
+        <div class="channel">Tampa Bay Lifestyle Magazine</div>
+        <div class="approach">More accessible than Tampa Magazine; runs profiles of local executives regularly. Strong glossy photo treatment.</div>
+        <div class="effort">Pitch · 3mo</div>
+      </div>
+      <div class="media-row">
+        <div class="channel">Tampa Bay Business Journal</div>
+        <div class="approach">"40 Under 40" and "Power 100" lists are nominated annually — submit Avenue Homes' growth story for consideration. Trade-paper coverage of expansion.</div>
+        <div class="effort">Nominate · 2mo</div>
+      </div>
+      <div class="media-row">
+        <div class="channel">That's So Tampa (podcast)</div>
+        <div class="approach">Locally beloved Tampa lifestyle podcast. Guest appearances are very reachable for a story-rich operator with a clear brand point of view.</div>
+        <div class="effort">Pitch · 1mo</div>
+      </div>
+      <div class="media-row">
+        <div class="channel">Bay News 9 / ABC Action News</div>
+        <div class="approach">Morning real estate or business segments. Pitch a quarterly market-trends interview as Avenue Homes' COO. Low-effort recurring visibility.</div>
+        <div class="effort">Pitch · 1mo</div>
+      </div>
+      <div class="media-row">
+        <div class="channel">Instagram + neighborhood content</div>
+        <div class="approach">Reels series: "Hyde Park Walking Tour," "Davis Islands Hidden Gems," "South Tampa Sunday Mornings." Geographic content outperforms listings content 4×.</div>
+        <div class="effort">Weekly · ongoing</div>
+      </div>
+      <div class="media-row">
+        <div class="channel">Avenue Homes neighborhood newsletter</div>
+        <div class="approach">Quarterly print piece — yes, print — mailed to South Tampa zip codes. Market data, two listings, one neighbor profile. Reaches the demographic that doesn't open Instagram.</div>
+        <div class="effort">Quarterly · $400–800</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 6: NETWORKING -->
+  <div class="module" id="networking">
+    <div class="module-head">
+      <div class="index">06 / 07</div>
+      <h3>Affordable <em>networking</em></h3>
+    </div>
+    <p class="module-intro">The Greater Tampa Chamber and major civic memberships scale up later. For Phase 1, the right rooms are the chambers and groups whose dues are under $500 and whose members are the same operators Avenue Homes works alongside daily.</p>
+
+    <div class="vol-grid">
+      <div class="vol-card">
+        <div class="header-row">
+          <h4>South Tampa Chamber of Commerce</h4>
+        </div>
+        <div class="indicator-row">
+          <div class="indicator cost-low">~$300/yr</div>
+          <div class="indicator">Monthly events</div>
+        </div>
+        <p>Hyper-local; specific to the neighborhoods Avenue Homes wants to dominate. Ribbon-cuttings, mixers, breakfasts. Inexpensive and immediately useful.</p>
+        <div class="why"><strong>Why:</strong> Direct access to the small-business owners who refer real estate clients monthly.</div>
+      </div>
+      <div class="vol-card">
+        <div class="header-row">
+          <h4>Tampa Bay Business Owners (TBBO)</h4>
+        </div>
+        <div class="indicator-row">
+          <div class="indicator cost-low">~$1k–2k/yr</div>
+          <div class="indicator">Monthly</div>
+        </div>
+        <p>Peer-group network of local operators. Forum-style monthly meetings, executive-coaching tone, well-connected facilitator class. Smaller and warmer than Chamber events.</p>
+        <div class="why"><strong>Why:</strong> Direct peer relationships with the kind of operators who become both clients and sponsors.</div>
+      </div>
+      <div class="vol-card">
+        <div class="header-row">
+          <h4>BNI — Business Networking International</h4>
+        </div>
+        <div class="indicator-row">
+          <div class="indicator cost-low">~$700/yr</div>
+          <div class="indicator">Weekly</div>
+        </div>
+        <p>Weekly 7am chapter meetings; one industry seat per chapter. Find the South Tampa or Hyde Park chapter; the real estate seat is a direct referral pipeline.</p>
+        <div class="why"><strong>Why:</strong> Pure ROI — every chapter member is contractually a referral source.</div>
+      </div>
+      <div class="vol-card">
+        <div class="header-row">
+          <h4>Athena Society</h4>
+        </div>
+        <div class="indicator-row">
+          <div class="indicator cost-low">By nomination</div>
+          <div class="indicator">Quarterly</div>
+        </div>
+        <p>By-invitation Tampa women's executive network. Smaller, more selective, more useful than its size suggests. Pursue once Phase 1 is underway and there's a Tampa story to tell.</p>
+        <div class="why"><strong>Why:</strong> Direct adjacency to Junior League leadership and the women who already know the Hyde Park families.</div>
+      </div>
+      <div class="vol-card">
+        <div class="header-row">
+          <h4>Tampa Connection</h4>
+        </div>
+        <div class="indicator-row">
+          <div class="indicator cost-low">$200–500</div>
+          <div class="indicator">9-month cohort</div>
+        </div>
+        <p>The Greater Tampa Chamber's young professional cohort. Less expensive than Leadership Tampa Bay; pre-LTB feeder; cohort-based for genuine relationships.</p>
+        <div class="why"><strong>Why:</strong> Cohort relationships compound for a decade; this is the ladder up to LTB later.</div>
+      </div>
+      <div class="vol-card">
+        <div class="header-row">
+          <h4>ULI Tampa Bay — Young Leaders Group</h4>
+        </div>
+        <div class="indicator-row">
+          <div class="indicator cost-low">~$500/yr</div>
+          <div class="indicator">Monthly</div>
+        </div>
+        <p>Urban Land Institute's under-35 track. Where the next generation of Tampa development meets — exactly the room Avenue Homes wants visibility in.</p>
+        <div class="why"><strong>Why:</strong> Direct relationships with the developers and brokerages whose listings Avenue Homes will eventually compete on.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 7: ACTION PLAN -->
+  <div class="module" id="plan-1">
+    <div class="module-head">
+      <div class="index">07 / 07</div>
+      <h3>The <em>nine-month</em> action plan</h3>
+    </div>
+    <p class="module-intro">Sequenced and budget-tagged. Tap each item to mark complete. Nothing in this plan exceeds a few hundred dollars per item; the entire nine months runs under $2,000 in hard costs. The point is presence, not purchase.</p>
+
+    <div class="action-plan">
+      <div class="action-quarter">
+        <div class="action-quarter-head">
+          <div class="badge">Q1</div>
+          <h4>Months 1–3 · <em>Foundation</em></h4>
+          <div class="quarter-budget">~$400</div>
+        </div>
+        <div class="action-list">
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Personal volunteer commitment.</strong> Sign up for one Habitat for Humanity Build Day per month. Show up in Avenue Homes-branded shirt.</div><div class="item-cost free">Free</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Plant first Bayshore Cleanup.</strong> Order 12 Avenue Homes T-shirts, supplies. Schedule for a Saturday in Q1.</div><div class="item-cost low">$150</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Join South Tampa Chamber of Commerce.</strong> Attend two events in the first 60 days.</div><div class="item-cost low">$300/yr</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Schedule first "First-Time Homebuyer" seminar</strong> at South Tampa Library or John F. Germany branch. Two agents + one mortgage partner.</div><div class="item-cost free">Free</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Apply: ULI Young Leaders Group.</strong> First breakfast within 30 days of joining.</div><div class="item-cost low">~$500/yr</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Begin Bayshore mornings.</strong> 6–8am, four days a week. Same loop. Build face-recognition.</div><div class="item-cost free">Free</div></div>
+        </div>
+      </div>
+
+      <div class="action-quarter">
+        <div class="action-quarter-head">
+          <div class="badge">Q2</div>
+          <h4>Months 4–6 · <em>Consistency</em></h4>
+          <div class="quarter-budget">~$700</div>
+        </div>
+        <div class="action-list">
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Launch quarterly "Coffee with Avenue"</strong> at Buddy Brew or Oxford Exchange. Every 12 weeks, same place.</div><div class="item-cost low">$300/event</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Avenue Homes group volunteer day at Metropolitan Ministries</strong> or Feeding Tampa Bay. Ten agents, two-hour shift, photos.</div><div class="item-cost free">Free</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Sponsor one Plant High athletic team uniform.</strong> Logo on the back of every game photo for the season.</div><div class="item-cost low">$300–500</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Pitch one local podcast or magazine.</strong> Tampa Bay Lifestyle Magazine or That's So Tampa is the warmest first target.</div><div class="item-cost free">Free</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Quarter-2 Bayshore Cleanup.</strong> Same format, larger group.</div><div class="item-cost low">$150</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>JLT volunteer day.</strong> Sign up for a Junior League project as a non-member volunteer. Holiday Gift Market preview committee is best.</div><div class="item-cost free">Free</div></div>
+        </div>
+      </div>
+
+      <div class="action-quarter">
+        <div class="action-quarter-head">
+          <div class="badge">Q3</div>
+          <h4>Months 7–9 · <em>Recognition</em></h4>
+          <div class="quarter-budget">~$900</div>
+        </div>
+        <div class="action-list">
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Avenue Homes August school supply drive.</strong> Two-week collection at the office; donate to a Title I South Tampa school.</div><div class="item-cost low">$200</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Davis Islands Pet Adoption Day</strong> co-hosted with Humane Society. Saturday morning, branded.</div><div class="item-cost low">$250</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Send first quarterly Avenue Homes neighborhood print newsletter</strong> to South Tampa zip codes. 33606, 33609, 33611, 33629.</div><div class="item-cost mid">$400–800</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Launch Holiday Toy Drive (Nov).</strong> Office as collection point + 2 partner businesses. Donate to Toys for Tots or Metropolitan Ministries.</div><div class="item-cost low">$200</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Salvation Army Red Kettle bell-ring shift</strong> as Avenue Homes team — 2-hour shift, branded apron, holiday-card photo content.</div><div class="item-cost free">Free</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>Apply for Junior League membership.</strong> Provisional class begins in fall. Volunteer hours from Q2 strengthen the application.</div><div class="item-cost mid">$200/yr dues</div></div>
+          <div class="action-item"><div class="check"></div><div class="text"><strong>End-of-Phase-1 review.</strong> Audit visibility: Google reviews, Instagram followers, local press mentions, agent referrals from non-clients. Phase 2 opens when these are real.</div><div class="item-cost free">Free</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-banner">
+    <h3>Phase I is the <em>foundation</em>.</h3>
+    <p>Earn the right to be in the room before paying to be at the table. The gala invitations of Phase II only convert if Avenue Homes is already a name people recognise.</p>
+  </div>
+
+</section>
+
+<!-- PHASE 2: TAMPA -->
+<section class="phase-panel" id="phase-2">
+
+  <div class="phase-header">
+    <div class="left">
+      <div class="label">○ Phase 02 — Year 1–2</div>
+      <h2>The <em>Tampa</em> Foundation</h2>
+    </div>
+    <div class="right">
+      <p class="summary">Once Avenue Homes is a known local name, you can spend the social capital you've built. This is the Hyde Park / Davis Islands / Tampa Yacht Club ladder — the personal social standing that comes from sponsored krewe membership, country club access, and selective gala participation.</p>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="num">~6,000</div>
+          <div class="label">Households in core South Tampa</div>
+        </div>
+        <div class="stat">
+          <div class="num">60+</div>
+          <div class="label">Gasparilla krewes</div>
+        </div>
+        <div class="stat">
+          <div class="num">12-18mo</div>
+          <div class="label">Realistic timeline to standing</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="module">
+    <div class="module-head">
+      <div class="index">01 / 04</div>
+      <h3>The <em>geography</em> of South Tampa wealth</h3>
+    </div>
+    <p class="module-intro">Tampa's old-money geography is small and walkable. Four neighborhoods contain almost all of it.</p>
+
+    <div class="geo-grid">
+      <div class="geo-card">
+        <div class="pin">01</div>
+        <h4>Hyde Park</h4>
+        <div class="zip">33606 / 33609</div>
+        <div class="blurb">The historic prestige address. Bungalows and Colonials shaded by oaks. Hyde Park Village is the daytime social square. Plant High School defines the families.</div>
+      </div>
+      <div class="geo-card">
+        <div class="pin">02</div>
+        <h4>Davis Islands</h4>
+        <div class="zip">33606</div>
+        <div class="blurb">A 1920s planned island, by bridge from downtown. Tampa Yacht & Country Club sits at its edge. The most concentrated old-money microclimate in the city.</div>
+      </div>
+      <div class="geo-card">
+        <div class="pin">03</div>
+        <h4>Beach Park / Sunset Park</h4>
+        <div class="zip">33609 / 33629</div>
+        <div class="blurb">Newer waterfront wealth — the trade-up address from Hyde Park. A different generational mood. Palma Ceia Country Club sits in the orbit.</div>
+      </div>
+      <div class="geo-card">
+        <div class="pin">04</div>
+        <h4>Bayshore Corridor</h4>
+        <div class="zip">33606 / 33611</div>
+        <div class="blurb">The longest continuous sidewalk in the world. Morning walking, jogging, and rollerblading at 6–8am is the city's open social ritual.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="module">
+    <div class="module-head">
+      <div class="index">02 / 04</div>
+      <h3>The clubs &amp; their <em>tiers</em></h3>
+    </div>
+    <p class="module-intro">Three tiers of access. Tier 1 is where standing is conferred and requires sponsor + seconder. Tier 2 is reachable now and useful for building Tier 1 sponsorships.</p>
+
+    <div class="clubs-grid">
+      <div class="club-card">
+        <div class="header-row">
+          <h4>Tampa Yacht &amp; Country Club</h4>
+          <div class="badge badge-tier-1">Tier 1</div>
+        </div>
+        <div class="meta-line">Founded <strong>1904</strong> · Davis Islands waterfront · Sponsored membership</div>
+        <p>The oldest and most prestigious private club in Tampa. Sailing, racquets, dining. Sponsor + seconder required from existing members.</p>
+        <div class="entry-tag">Long-game · 18-36 months of relationship-building</div>
+      </div>
+      <div class="club-card">
+        <div class="header-row">
+          <h4>Palma Ceia Golf &amp; Country Club</h4>
+          <div class="badge badge-tier-1">Tier 1</div>
+        </div>
+        <div class="meta-line">Founded <strong>1916</strong> · Hyde Park · Golf, tennis, social</div>
+        <p>The country club of the Hyde Park set — golf-anchored, family-oriented. Sponsorship matters more than money.</p>
+        <div class="entry-tag">Pair with Plant High alumni network</div>
+      </div>
+      <div class="club-card">
+        <div class="header-row">
+          <h4>The Tampa Club</h4>
+          <div class="badge badge-tier-2">Tier 2</div>
+        </div>
+        <div class="meta-line">Downtown · Bank of America Plaza, 42nd floor · Business club</div>
+        <p>The city's principal business and dining club. Reachable, useful for daytime client meetings, and a meaningful introduction surface to Tier-1 members.</p>
+        <div class="entry-tag">Apply in Phase 1 transition to Phase 2</div>
+      </div>
+      <div class="club-card">
+        <div class="header-row">
+          <h4>The Centre Club</h4>
+          <div class="badge badge-tier-2">Tier 2</div>
+        </div>
+        <div class="meta-line">Westshore · Business &amp; social · Reciprocal program</div>
+        <p>Younger demographic. Strong real estate community. Westshore proximity makes it the practical lunch club.</p>
+        <div class="entry-tag">Reciprocal access to clubs nationally</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="module">
+    <div class="module-head">
+      <div class="index">03 / 04</div>
+      <h3>Krewes &amp; <em>charities</em></h3>
+    </div>
+    <p class="module-intro">In Phase 2, Avenue Homes can sponsor real galas; Kaitlyn can join a krewe; and the Junior League membership earned through Phase 1 volunteer hours becomes the primary social engine.</p>
+
+    <div class="compact-grid">
+      <div class="compact-card"><div class="country">Krewes — Tier 1</div><h4>Ye Mystic Krewe of Gasparilla</h4><p>Founded 1904. Invitation only. Don't aim here directly; aim through standing.</p></div>
+      <div class="compact-card"><div class="country">Krewes — Sponsored</div><h4>Knights of Sant'Yago</h4><p>Latin Tampa heritage. Illuminated Knight Parade. Sponsored entry once relationships are warm.</p></div>
+      <div class="compact-card"><div class="country">Krewes — Open application</div><h4>Krewe of Venus</h4><p>The leading women's krewe. Strong philanthropy and active calendar.</p></div>
+      <div class="compact-card"><div class="country">Krewes — Open application</div><h4>Krewe of the Nautilus / Neptune</h4><p>~75–100 members each. Two-events trial then sponsor pathway.</p></div>
+      <div class="compact-card"><div class="country">Charity — Health</div><h4>Moffitt Cancer Center · Magnolia Ball</h4><p>The year's premier black-tie. Avenue Homes table at $5,000–10,000 in Phase 2.</p></div>
+      <div class="compact-card"><div class="country">Charity — Health</div><h4>AHA Tampa · Heart Ball</h4><p>One of the most-attended black-ties of the year. Executive Leadership Team is a useful committee.</p></div>
+      <div class="compact-card"><div class="country">Charity — Arts</div><h4>Tampa Museum of Art</h4><p>Junior Patrons program in Phase 2; trustee circle ties to Naples and Palm Beach collectors.</p></div>
+      <div class="compact-card"><div class="country">Civic</div><h4>Junior League of Tampa</h4><p>Provisional class begins each fall — applied in Phase 1, active in Phase 2.</p></div>
+    </div>
+  </div>
+
+  <div class="module">
+    <div class="module-head">
+      <div class="index">04 / 04</div>
+      <h3>The Tampa <em>year</em></h3>
+    </div>
+
+    <div class="calendar">
+      <div class="month-card"><div class="mo">January</div><div class="num">01</div><ul><li><strong>Outback Bowl</strong>VIP suites at Raymond James</li><li><strong>Children's Gasparilla Parade</strong></li><li><strong>YMKG Pirate Invasion</strong>Bayshore</li></ul></div>
+      <div class="month-card"><div class="mo">February</div><div class="num">02</div><ul><li><strong>Gasparilla Festival of the Arts</strong>Curtis Hixon Park · TMA</li><li><strong>Sant'Yago Illuminated Knight Parade</strong>Ybor</li></ul></div>
+      <div class="month-card"><div class="mo">March</div><div class="num">03</div><ul><li><strong>Gasparilla Music Festival</strong></li><li><strong>Lightning playoffs</strong>Vinik suite scene</li><li><strong>Heart Ball</strong></li></ul></div>
+      <div class="month-card"><div class="mo">April</div><div class="num">04</div><ul><li><strong>Magnolia Ball (Moffitt)</strong>Year's premier benefit</li><li><strong>Junior League events</strong></li></ul></div>
+      <div class="month-card"><div class="mo">Sep–Oct</div><div class="num">10</div><ul><li><strong>Bucs season opens</strong></li><li><strong>Junior League fall opens</strong></li><li><strong>TMA Gala</strong></li></ul></div>
+      <div class="month-card"><div class="mo">Nov–Dec</div><div class="num">12</div><ul><li><strong>JL Holiday Gift Market</strong></li><li><strong>Hyde Park Village Holiday Stroll</strong></li><li><strong>Krewe parties</strong></li></ul></div>
+      <div class="month-card"><div class="mo">Year-Round</div><div class="num">∞</div><ul><li><strong>Bayshore mornings</strong>6–8am</li><li><strong>Bern's Steakhouse</strong>Tasting Salon upstairs</li><li><strong>Oxford Exchange</strong>Daytime</li></ul></div>
+      <div class="month-card"><div class="mo">Cross-state</div><div class="num">→</div><ul><li><strong>Naples migration</strong>Summer</li><li><strong>Palm Beach</strong>Winter</li><li><strong>Sarasota / Boca</strong>Quarterly</li></ul></div>
+    </div>
+  </div>
+
+  <div class="cta-banner brass">
+    <h3>Phase II earns the <em>standing</em>.</h3>
+    <p>Phase III translates that standing into international visibility. The transatlantic real-estate and cultural circuits — London, Paris, the warm route to the Continent.</p>
+  </div>
+</section>
+
+<!-- PHASE 3: CONTINENTAL BRIDGE -->
+<section class="phase-panel" id="phase-3">
+  <div class="phase-header">
+    <div class="left">
+      <div class="label">○ Phase 03 — Year 2 onward</div>
+      <h2>The <em>Continental</em> Bridge</h2>
+    </div>
+    <div class="right">
+      <p class="summary">Translate Tampa standing into transatlantic visibility. Two or three professional anchors per year, two or three cultural ones, and consistent presence at two or three institutions you genuinely care about.</p>
+    </div>
+  </div>
+
+  <div class="module">
+    <div class="module-head">
+      <div class="index">01 / 01</div>
+      <h3>The eight <em>movements</em></h3>
+    </div>
+    <p class="module-intro">The Continental Plan in condensed form. Each is a discipline; together they compose a presence.</p>
+
+    <div class="compact-grid">
+      <div class="compact-card"><div class="country">Movement I</div><h4>A real reason to be there</h4><p>International real-estate partnership (Knight Frank / Engel &amp; Völkers / Sotheby's International). Legitimate professional pretext to be in London, Paris, Geneva 3–4 times a year.</p></div>
+      <div class="compact-card"><div class="country">Movement II</div><h4>The cultural calendar</h4><p>Memorise it; attend it. Begin with the accessible tier and graduate up.</p></div>
+      <div class="compact-card"><div class="country">Movement III</div><h4>Philanthropy as passport</h4><p>Junior committee / young patrons board of a European institution. Annual commitments in the low five figures.</p></div>
+      <div class="compact-card"><div class="country">Movement IV</div><h4>Sport in the European register</h4><p>Equestrian, sailing, polo, tennis, skiing. Choose one and go genuinely deep.</p></div>
+      <div class="compact-card"><div class="country">Movement V</div><h4>Education as accelerator</h4><p>An executive program at INSEAD, IMD, Oxford Saïd, HEC, or Bocconi.</p></div>
+      <div class="compact-card"><div class="country">Movement VI</div><h4>Languages</h4><p>Take French and Italian to true fluency. Conversational doesn't open the door.</p></div>
+      <div class="compact-card"><div class="country">Movement VII</div><h4>Personal presentation</h4><p>The European code is quietly expensive. Restraint reads as old money; flash reads as American.</p></div>
+      <div class="compact-card"><div class="country">Movement VIII</div><h4>Realistic timeline</h4><p>Two to three years across two or three avenues — not all eight at once.</p></div>
+    </div>
+  </div>
+
+  <div class="cta-banner brass">
+    <h3>The <em>bridge</em>, not the destination.</h3>
+    <p>Phase III is patient compound interest. The depth of Phase IV becomes possible because of it.</p>
+  </div>
+</section>
+
+<!-- PHASE 4: FRANCO-SWISS -->
+<section class="phase-panel" id="phase-4">
+  <div class="phase-header">
+    <div class="left">
+      <div class="label">○ Phase 04 — Year 3+</div>
+      <h2>The <em>Franco-Swiss</em> Mastery</h2>
+    </div>
+    <div class="right">
+      <p class="summary">The destination. The calendar, the schools, the foundations, and the rooms where French and Swiss capital actually meets — Paris, Geneva, the Riviera, the Engadin.</p>
+    </div>
+  </div>
+
+  <div class="module">
+    <div class="module-head">
+      <div class="index">01 / 03</div>
+      <h3>The <em>working</em> Franco-Swiss year</h3>
+    </div>
+    <p class="module-intro">Four anchors of a Franco-Swiss year — events you book a year in advance.</p>
+
+    <div class="calendar">
+      <div class="month-card"><div class="mo">January · CH</div><div class="num">01</div><ul><li><strong>Snow Polo World Cup</strong>St. Moritz</li><li><strong>artgenève</strong>Geneva</li><li><strong>WEF Davos</strong>If invited</li></ul></div>
+      <div class="month-card"><div class="mo">March · FR</div><div class="num">03</div><ul><li><strong>MIPIM Cannes</strong>The annual non-negotiable</li><li><strong>Saut Hermès</strong>Grand Palais</li><li><strong>Paris Fashion Week</strong></li></ul></div>
+      <div class="month-card"><div class="mo">June · CH/FR</div><div class="num">06</div><ul><li><strong>Art Basel</strong>Basel</li><li><strong>Roland Garros finals</strong>Paris</li><li><strong>Prix de Diane</strong>Chantilly</li></ul></div>
+      <div class="month-card"><div class="mo">July–Aug · CH</div><div class="num">07</div><ul><li><strong>Verbier Festival</strong>chamber music</li><li><strong>Lucerne Festival</strong>orchestras</li><li><strong>Hublot Polo Gold Cup</strong>Gstaad</li></ul></div>
+    </div>
+  </div>
+
+  <div class="module">
+    <div class="module-head">
+      <div class="index">02 / 03</div>
+      <h3>The <em>foundations</em> that matter</h3>
+    </div>
+    <p class="module-intro">Patrons' circles are the actual social meeting rooms of the Franco-Swiss elite. Pick one in Paris and one in Switzerland.</p>
+
+    <div class="compact-grid">
+      <div class="compact-card"><div class="country">Paris</div><h4>Société des Amis du Louvre</h4><p>The oldest patrons society in France.</p></div>
+      <div class="compact-card"><div class="country">Paris</div><h4>Société des Amis du Musée d'Orsay</h4><p>Younger and more sociable than the Louvre's.</p></div>
+      <div class="compact-card"><div class="country">Paris</div><h4>AROP — Amis de l'Opéra</h4><p>The Opéra de Paris patrons.</p></div>
+      <div class="compact-card"><div class="country">Versailles</div><h4>Société des Amis de Versailles</h4><p>Custodians of the most photographed château in Europe.</p></div>
+      <div class="compact-card"><div class="country">Basel</div><h4>Fondation Beyeler</h4><p>The most important private museum in Switzerland.</p></div>
+      <div class="compact-card"><div class="country">Lausanne</div><h4>Fondation de l'Hermitage</h4><p>Small French-speaking patrons' programme overlooking the lake.</p></div>
+      <div class="compact-card"><div class="country">Verbier</div><h4>Les Amis du Festival de Verbier</h4><p>Intimate; the patrons-and-musicians dinners are unmatched.</p></div>
+      <div class="compact-card"><div class="country">Geneva</div><h4>Michelangelo Foundation</h4><p>Johann Rupert's foundation; biennial Homo Faber in Venice.</p></div>
+    </div>
+  </div>
+
+  <div class="module">
+    <div class="module-head">
+      <div class="index">03 / 03</div>
+      <h3>The <em>schools</em></h3>
+    </div>
+    <p class="module-intro">An executive programme at the right institution accelerates by years what attending events alone cannot.</p>
+
+    <div class="compact-grid">
+      <div class="compact-card"><div class="country">France</div><h4>HEC Paris · Executive Education</h4><p>Premier French business school; one-week residential programs are reachable.</p></div>
+      <div class="compact-card"><div class="country">France</div><h4>INSEAD · Executive Education</h4><p>"The business school for the world." Fontainebleau campus is 90 minutes from Paris.</p></div>
+      <div class="compact-card"><div class="country">Switzerland</div><h4>IMD Lausanne · Executive Education</h4><p>The most respected exec-MBA programme in continental Europe.</p></div>
+      <div class="compact-card"><div class="country">UK / pan-European</div><h4>Oxford Saïd · Executive Education</h4><p>Strong global brand, well-aligned for law-adjacent professionals.</p></div>
+    </div>
+  </div>
+
+  <div class="cta-banner brass">
+    <h3>Three events. Two foundations. One school.</h3>
+    <p>That is the actual plan — not thirty events, eight charities, three degrees. Restraint is the European code in itself.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="mono">The Plan <span>·</span> Vol. IV <span>·</span> Tampa, MMXXVI <span>·</span> Prepared for K. Quesada</div>
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.nav-tab');
+  const panels = document.querySelectorAll('.phase-panel');
+  const phaseCards = document.querySelectorAll('.phase-card');
+
+  function switchPhase(num) {
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.phase === num));
+    panels.forEach(p => p.classList.toggle('active', p.id === 'phase-' + num));
+    phaseCards.forEach(c => c.classList.toggle('current', c.dataset.phaseJump === num));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach(tab => tab.addEventListener('click', () => switchPhase(tab.dataset.phase)));
+  phaseCards.forEach(card => card.addEventListener('click', () => switchPhase(card.dataset.phaseJump)));
+
+  document.querySelectorAll('.action-item').forEach(item => {
+    item.addEventListener('click', () => item.classList.toggle('done'));
+  });
+
+  document.getElementById('modeToggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+  });
+
+  document.querySelectorAll('.module-nav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('in');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.module, .geo-card, .club-card, .vol-card, .partner-card, .month-card, .compact-card, .hierarchy-row, .event-item, .media-row').forEach(el => {
+    el.classList.add('reveal');
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
